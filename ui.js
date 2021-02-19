@@ -15,3 +15,19 @@ function displayProfile(user) {
     var content = document.getElementById('content');
     content.style = "display: block";
 }
+
+async function displayEmail() {
+    var emails = await getEmails();
+    if (!emails || emails.value.length < 1) {
+        return;
+    }
+
+    var emailsUl = document.getElementById('emails');
+    // clear existing elements
+    emailsUl.innerHTML = '';
+    emails.value.forEach(email => {
+        var emailLi = document.createElement('li');
+        emailLi.innerText = `${email.subject} (${new Date(email.receivedDateTime).toLocaleString()})`;
+        emailsUl.appendChild(emailLi);
+    });
+}

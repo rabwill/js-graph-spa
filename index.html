@@ -11,7 +11,8 @@
     <div id="content" style="display: none;">
       <h4>Welcome <span id="userName"></span></h4>
       <p>Your email retrieved from Microsoft Graph is: <span id="userEmail"></span></p>
-      <button></button>
+      <button onclick="displayEmail();">Show email</button>
+      <ul id="emails"></ul>
     </div>
     <a id="signin" onclick="signIn(); return false;" href="#">
       <img src="ms-symbollockup_signin_light.png" alt="Sign in with Microsoft" />

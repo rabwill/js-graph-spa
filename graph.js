@@ -16,6 +16,10 @@ async function getUser() {
 }
 
 async function getEmails() {
+    if (msalRequest.scopes.indexOf('mail.read') < 0) {
+        msalRequest.scopes.push('mail.read');
+    }
+
     return await graphClient
         .api('/me/messages')
         .select('subject,receivedDateTime')
