@@ -17,8 +17,6 @@ async function signIn() {
     sessionStorage.setItem('msalAccount', authResult.account.username);
     // Get the user's profile from Graph
     const user = await getUser();
-    // Save the profile in session storage
-    sessionStorage.setItem('graphUser', JSON.stringify(user));   
     displayProfile(user);
 }
 //Get token from Graph

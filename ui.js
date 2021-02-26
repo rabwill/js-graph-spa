@@ -1,4 +1,4 @@
-function displayProfile(user) {    
+function displayProfile(user) {
     if (!user) {
         return;
     }
@@ -6,8 +6,6 @@ function displayProfile(user) {
     // set user data
     var userName = document.getElementById('userName');
     userName.innerText = user.displayName;
-    var userEmail = document.getElementById('userEmail');
-    userEmail.innerText = user.mail;
 
     // hide login button and show user info
     var signInButton = document.getElementById('signin');
@@ -16,8 +14,9 @@ function displayProfile(user) {
     content.style = "display: block";
 }
 
+var page = 1;
 async function displayEmail() {
-    var emails = await getEmails();
+    var emails = await getEmails(page);
     if (!emails || emails.value.length < 1) {
         return;
     }
@@ -30,4 +29,20 @@ async function displayEmail() {
         emailLi.innerText = `${email.subject} (${new Date(email.receivedDateTime).toLocaleString()})`;
         emailsUl.appendChild(emailLi);
     });
+
+    // stop if there are no more emails to display
+    if (page === 1 && !emails['@odata.nextLink']) {
+        return;
+    }
+
+    var emailsPagingButtons = document.getElementById('emailsPaging');
+    emailsPagingButtons.style = 'display: block';
+
+    var previousEmailsButton = document.getElementById('emailsPagingPrevious');
+    // hide previous button on the first page
+    previousEmailsButton.style = `display: ${page === 1 ? 'none' : 'inline'}`;
+
+    var nextEmailsButton = document.getElementById('emailsPagingNext');
+    // hide next button on the last page
+    nextEmailsButton.style = `display: ${!emails['@odata.nextLink'] ? 'none' : 'inline'}`;
 }

@@ -15,13 +15,23 @@ async function getUser() {
         .get();
 }
 
-async function getEmails() {
+async function getEmails(page) {
+    // request the necessary permissions of not already present
     if (msalRequest.scopes.indexOf('mail.read') < 0) {
         msalRequest.scopes.push('mail.read');
     }
 
-    return await graphClient
+    var pageSize = 10;
+
+    var query = graphClient
         .api('/me/messages')
         .select('subject,receivedDateTime')
-        .get();
+        .orderby('receivedDateTime desc')
+        .top(pageSize);
+
+    if (page && page > 1) {
+        query.skip(page * pageSize);
+    }
+
+    return await query.get();
 }
