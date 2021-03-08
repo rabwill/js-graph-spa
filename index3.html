@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>JavaScript Microsoft Graph SPA</title>
+  <link rel="icon" href="data:;base64,="> <!-- Suppress favicon error -->
+</head>
+
+<body>
+  <main id="main-container" role="main" class="container">
+    <div id="content" style="display: none;">
+      <h4>Welcome <span id="userName"></span></h4>
+      <button onclick="displayEmail();">Show email</button>
+      <ul id="emails"></ul>
+      <div id="emailsPaging" style="display: none;">
+        <button id="emailsPagingPrevious" style="display: none;" onclick="page--; displayEmail();">&lt;
+          Previous</button>
+        <button id="emailsPagingNext" onclick="page++; displayEmail();">Next &gt;</button>
+      </div>
+    </div>
+    <a id="signin" onclick="signIn(); return false;" href="#">
+      <img src="ms-symbollockup_signin_light.png" alt="Sign in with Microsoft" />
+    </a>
+  </main>
+  <script src="lib/identity.js"></script>
+  <script src="lib/graph-js-sdk.js"></script>
+  <script src="graph3.js"></script>
+  <script src="ui.js"></script>
+</body>
+
+</html>
